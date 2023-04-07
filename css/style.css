@@ -83,8 +83,8 @@ h1 {
     transform: rotateY(0deg);
 }
 
-.card1{} /*frente da carta, papagaio estatico*/
-.card2{} /*lado de tras, parzinhos*/
+.card1 {} /*frente da carta, papagaio estatico*/
+.card2 {} /*lado de tras, parzinhos*/
 
 img {
     width:100px;

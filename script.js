@@ -48,37 +48,43 @@ function turnCard(thisCard) {
 
 //onclick function
 let count = 0;
+
 function selectCard(thisCard) {
-    count++;
-    const alreadyTurned = document.querySelector('.face.notSelected.back');
+    //do not allow to turn 3 cards at once
+    const howMany = document.querySelectorAll('.face.notSelected.back');
 
-    turnCard(thisCard);
-    const thisCardChild = thisCard.querySelector('.face.notSelected.back');
-    
-    //if one is already turned, check if its the same
-        //if it is, remove a class from both
-        //if it isn't, wait and turn both again
+    if(howMany.length<2) {
+        count++;
+        const alreadyTurned = document.querySelector('.face.notSelected.back');
 
-    if(alreadyTurned !== null) {
-        const alreadyTurnedParent = alreadyTurned.parentNode;
-        const alreadyTurnedImg = alreadyTurned.querySelector('img').src;
-        const thisCardImg = thisCardChild.querySelector('img').src;
+        turnCard(thisCard);
+        const thisCardChild = thisCard.querySelector('.face.notSelected.back');
+        
+        //if one is already turned, check if its the same
+            //if it is, remove a class from both
+            //if it isn't, wait and turn both again
 
-        if(thisCardImg == alreadyTurnedImg) {
-            thisCardChild.classList.remove('notSelected');
-            thisCard.removeAttribute("onclick");
-            alreadyTurned.classList.remove('notSelected');
-            alreadyTurnedParent.removeAttribute("onclick");
-        } else {
-            setTimeout(turnCard.bind(null, thisCard),1000);
-            setTimeout(turnCard.bind(null, alreadyTurnedParent),1000);
+        if(alreadyTurned !== null) {
+            const alreadyTurnedParent = alreadyTurned.parentNode;
+            const alreadyTurnedImg = alreadyTurned.querySelector('img').src;
+            const thisCardImg = thisCardChild.querySelector('img').src;
+
+            if(thisCardImg == alreadyTurnedImg) {
+                thisCardChild.classList.remove('notSelected');
+                thisCard.removeAttribute("onclick");
+                alreadyTurned.classList.remove('notSelected');
+                alreadyTurnedParent.removeAttribute("onclick");
+            } else {
+                setTimeout(turnCard.bind(null, thisCard),1000);
+                setTimeout(turnCard.bind(null, alreadyTurnedParent),1000);
+            }
         }
-    }
 
-    //check for end of the game, when all classes will be already removed
-    const fim = document.querySelector('.notSelected');
-    if(fim === null) {
-        setTimeout(alert.bind(null, 'Você ganhou em '+count+' jogadas!'),1000);
+        //check for end of the game, when all classes will be already removed
+        const fim = document.querySelector('.notSelected');
+        if(fim === null) {
+            setTimeout(alert.bind(null, 'Você ganhou em '+count+' jogadas!'),1000);
+        }
     }
 }
 
