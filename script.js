@@ -9,6 +9,25 @@ function turnCard(thisCard) {
 
     card1.classList.toggle('front');
     card2.classList.toggle('back');
+
+    //do not allow for second click without selecting another
+    //check whih side is up
+    //if gif side is up
+        //remove onclick
+    //else
+        //add onclick
+    
+    const frontUp = thisCard.querySelector('.card1.front');
+
+    if(frontUp !== null) {
+        if(thisCard.hasAttribute('onclick')) {
+            thisCard.removeAttribute('onclick');
+        } else {
+            thisCard.onclick = function(){};
+        }
+    } else {
+        thisCard.onclick = function(){selectCard(this)};
+    }
 }
 
 //function to clear the cards
@@ -35,7 +54,7 @@ function timer() {
 function reset() {
     let inputReset ='';
     while(inputReset !== 'não' && inputReset !== 'sim') {
-        inputReset = prompt("Gostaria de recomeçar o jogo?");
+        inputReset = prompt("Você gostaria de reiniciar a partida? (sim ou não)");
     }
         
     if(inputReset === 'sim') {
