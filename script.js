@@ -17,6 +17,20 @@ function clearCards() {
     container.innerHTML = '';
 }
 
+//updates the timer
+let t = 0;
+const timerDisplay = document.querySelector('p');
+
+function updateTime() {
+    t++;
+    timerDisplay.innerHTML = t;
+}
+
+let timerActive = null;
+function timer() {
+    timerActive = setInterval(updateTime,1000);
+}
+
 //function to reset the game
 function reset() {
     let inputReset ='';
@@ -25,9 +39,23 @@ function reset() {
     }
         
     if(inputReset === 'sim') {
+        t=0;
+        clearInterval(timerActive);
         clearCards();
         game();
     } 
+}
+
+//check for end of the game, when all classes will be already removed
+function end() {
+    const end = document.querySelector('.notSelected');
+    if(end === null) {
+        let totalTime = document.querySelector('p').innerHTML;
+
+        setTimeout(alert.bind(null, 'Você ganhou em '+count+' jogadas! A duração do jogo foi de '+(Number(totalTime)+1)+' segundos!'),1000);
+        //call reset function
+        setTimeout(reset,1000);
+    }
 }
 
 //onclick function
@@ -62,20 +90,15 @@ function selectCard(thisCard) {
                 setTimeout(turnCard.bind(null, alreadyTurnedParent),1000);
             }
         }
-
-        //check for end of the game, when all classes will be already removed
-        const fim = document.querySelector('.notSelected');
-        if(fim === null) {
-            setTimeout(alert.bind(null, 'Você ganhou em '+count+' jogadas!'),1000);
-            //call reset function
-            setTimeout(reset,1000);
-        }
     }
+
+    end();
 }
 
 function game() { 
+    timer();
    //template to be added to parent div
-    const template1 = '<div class="card" onclick="selectCard(this)"><div class="card1 face"><img src="./assets/back.png" alt="papagainho"></div><div class="card2 back-face face notSelected"><img src="./assets/';
+    const template1 = '<div data-test="card" class="card" onclick="selectCard(this)"><div class="card1 face"><img data-test="face-down-image" src="./assets/back.png" alt="papagainho"></div><div class="card2 back-face face notSelected"><img data-test="face-up-image" src="./assets/';
     const template2 = '\" alt="papagainho"></div></div>';
 
     let numberCards = 0;
