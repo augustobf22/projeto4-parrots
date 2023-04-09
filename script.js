@@ -57,9 +57,9 @@ function reset() {
         inputReset = prompt("Você gostaria de reiniciar a partida? (sim ou não)");
     }
         
+    clearInterval(timerActive); //either way, should stop the timer
     if(inputReset === 'sim') {
         t=0;
-        clearInterval(timerActive);
         clearCards();
         game();
     } 
